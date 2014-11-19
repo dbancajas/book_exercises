@@ -1,0 +1,12 @@
+Question 1-11: How would you test the word count program? What kinds of input are most likely
+to uncover bugs if there are any?
+
+I got this from the answer key.
+
+1. Words that have dashes
+2. if you have colons separating two words.
+3. no input
+4. no words
+5. one word per line
+6. word starting at the beginning of the line
+7. word starting after some blanks
