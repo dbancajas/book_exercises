@@ -5,13 +5,19 @@
 //tab stops, say every n columns. Should n be a variable or a symbolic
 //parameter?
 
-//This is wrong for now. I understood the question differently
+//I have two solutions for this: 
+// shortersolution() is the one based on the book. It doesn't store the output into any data structure.
+// detab() is an in-place solution that is more complex.
+
 
 int getl(char s[], int lim);
+
 #define MAXLEN 500
 #define TABL 2
+#define TABINC 8
+
 void detab(char s[]);
-void moveby4(char beg[], char m[]);
+void moveby(char beg[], char m[], int add);
 
 //it is assumed that there is enough space to accomodate all characters
 
@@ -20,14 +26,36 @@ int main(void) {
 	char s[MAXLEN];
 
 	while ((len=getl(s,MAXLEN))>0){
-		printf("string: %s",s);
+		printf("012345678012345678");
+		printf("s:\n%s\n",s);
+		shortersolution(s,MAXLEN);
 		detab(s);
-		printf("detabbed: %s", s);
+		printf("d:\n%s\n", s);
 	}
 
 	return 0;
 }
 
+int shortersolution(char s[], int lim){
+	int i,j;
+	int pos=0;
+
+	printf("shorter solution:\n");	
+
+	for(i=0; i < lim && s[i]!='\0'; i++){
+		if(s[i]=='\t'){
+			int nb = TABINC - (pos % (TABINC-1));
+			for (j=0;j<nb;j++)
+				putchar('Z');	
+		}
+		else{
+			if (s[i]=='\n')
+				pos=0;	
+			putchar(s[i]);
+			pos++;
+		}
+	}
+}
 
 int getl(char s[], int lim){
 
@@ -43,17 +71,22 @@ int getl(char s[], int lim){
 
 }
 
+//this is an inplace solution, so it is more complex
+
 void detab(char s[]){
 	int i=0;
+	short int cnt=0;
+	int add;
 
 	while (s[i] != '\0'){
+		add=TABINC - (i % (TABINC-1));
 		if (s[i]=='\t')
-			moveby4(s,s+i);
+			moveby(s,s+i,add);
 		i++;
 	}
 }
 
-void moveby4(char beg[], char m[]){
+void moveby(char beg[], char m[], int add){
 	
 	char * end = m;
 	int i=0;
@@ -63,10 +96,10 @@ void moveby4(char beg[], char m[]){
 	
 	if (beg + MAXLEN - TABL > end){ //means that there is space left in the char array
 		while( m < end )	{
-			*(end + TABL - 1) = *end;
+			*(end + add - 1) = *end;
 			end--;
 		}
-		for (i=0; i < TABL; i++)
-			m[i]=' ';
+		for (i=0; i < add; i++)
+			m[i]='X';
 	}
 }
