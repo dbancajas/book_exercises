@@ -1,5 +1,7 @@
 #include<stdio.h>
 
+//Exercise 4-1: Write the function strrdinex(s,t) which returns the position of the rightmost occurrence of t in s, or -1 if there is none
+
 int strrindex(char s[], char t[]){
 	int i,j;
 	int pos=-1; //stores the rightmost position
