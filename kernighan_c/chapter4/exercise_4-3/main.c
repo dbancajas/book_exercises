@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h> 
+#include "calc.h"
 #define MAXOP 100
 #define NUMBER  '0'
 
@@ -17,6 +18,7 @@ int main(void)
 	while ((type = getop(s)) != EOF) {
 		switch (type) {
 			case NUMBER:
+				printf("pushing %f\n",atof(s));
 				push(atof(s));
 				break;
 			case '+':
@@ -27,7 +29,12 @@ int main(void)
 				break;
 			case '-':
 				op2 = pop();
+				printf("op2 = %f\n",op2);
 				push(pop() - op2);
+				break;
+			case '%':
+				op2 = pop();
+				push((double)((int)pop() % (int)op2));
 				break;
 			case '/':
 				op2 = pop();

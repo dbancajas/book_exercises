@@ -2,8 +2,6 @@
 #include <stdio.h>
 #include <ctype.h>
 
-
-
 #define MAXVAL 100
 int sp = 0;
 
