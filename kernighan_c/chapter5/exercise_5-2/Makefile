@@ -1,7 +1,7 @@
 CC=gcc
 
 all: *.c
-	$(CC) $? -o $@ -I. -lm
+	$(CC) $? -o $@ -I.
 
 clean: 
 	rm all
