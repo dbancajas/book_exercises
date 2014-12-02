@@ -16,5 +16,7 @@ int main(void){
 	cout<<"Number of words: "<<count<<endl;
 
 
+	inp.close();
+
 	return 0;
 }
