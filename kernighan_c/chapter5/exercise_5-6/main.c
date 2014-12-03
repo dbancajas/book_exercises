@@ -1,5 +1,7 @@
 #include<stdio.h>
 
+//Exercise 5-6: Rewrite appropriate programs from earlier chapters and exercises with pointers instead of array indexing. Good possibilities include getline (Chapters 1 and 4), atoi, itoa, (Chapters 2, 3 and 4) reverse (chapter 3) and strindex and getop (chapter 4).
+
 void reverse(char *s){
 
 	char *t = s;

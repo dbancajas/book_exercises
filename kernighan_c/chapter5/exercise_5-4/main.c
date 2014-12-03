@@ -14,6 +14,7 @@ int strend(char *s, char *t){
 	t2--;
 
 	while(*t2--==*s-- && t2>=t); //compare t2 and s backwards
+
 	t2++;
 
 	return (t2==t)? 1:0; //see if we have arrived at t
