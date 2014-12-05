@@ -23,22 +23,52 @@ int day_of_year(int year, int month, int day){
 
 	for (i=1; i < month; i++)
 		day+=daytab[leap][i];
+
 	return day;
 }
 
+//we used pointers for month and day since we want to "return" two values to the caller.
+//I have changed the return type to signal ERROR or not by returning a negative number for error.
 
-void month_day(int year, int yearday, int *pmonth, int *pday){
+int month_day(int year, int yearday, int *pmonth, int *pday){
 	int i,leap;
 	leap = (year%4 == 0 && year % 100 != 0) || year%400==0;
+
+	if (year < 0 || yearday < 1 || yearday > (leap? 366: 365))
+		return -1;
 
 	for (i=1; yearday > daytab[leap][i]; i++)
 		yearday -= daytab[leap][i];
 
 	*pmonth = i;
 	*pday = yearday;
+	return 0;
 }
 
 int main (void) {
+
+	int year = 2008;
+	int month = 12;
+	int day = 31;
+
+	int month2=0;
+	int day2=0;
+
+	int myday = day_of_year(year,month,day);
+
+	int error2 = month_day(year,myday,&month2,&day2);
+
+	if (!myday)
+		printf("something wrong with month:%d, day:%d, year:%d\n", month,day,year);
+	else
+		printf("%d-%d-%d is the %d day of the year\n",month,day,year,myday );
+
+
+	if(!error2)
+		printf("%d day of the year for year %d is %d-%d\n",myday, year, month2,day2);
+	else
+		printf("something wrong with %d day of the year. maybe not a valid value?\n",myday);
+
 
 
 	return 0;
