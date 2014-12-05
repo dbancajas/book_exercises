@@ -2,7 +2,7 @@
 #include<string.h>
 #include<stdlib.h>
 
-#define MAXLINES 1000 /*max # of lines to be sorted */
+#define MAXLINES 10000 /*max # of lines to be sorted */
 
 //Exercise 5-7: Rewrite readlines to store lines in an array supplied by main,
 //rather than calling alloc to maintain storage. How much faster is the
@@ -10,6 +10,9 @@
 //
 
 //Answer: there's probably not a difference in runtime? This question is a bit vague for me.
+//readlines3() below is the solution from the answer key. The difference with
+//my solution is that it allocated a 1-D array instead of a 2d array. I guess
+//this is faster given that the malloc() is only called once.
 
 char *lineptr[MAXLINES];
 
@@ -17,6 +20,7 @@ char *lineptr[MAXLINES];
 
 int readlines(char *lineptr[], int nlines);
 int readlines2(char *lineptr[], int nlines);
+int readlines3(char *lineptr[], char * linestor, int nlines);
 void writelines(char *lineptr[], int nlines);
 
 void qsort2(char *lineptr[], int left, int right);
@@ -27,12 +31,14 @@ int main(void){
 	int nlines;
 	int i;
 
-	for (i=0; i < MAXLINES; ++i)
-		lineptr[i]=(char*)malloc(sizeof(char)*MAXLEN);
+	//for (i=0; i < MAXLINES; ++i)
+	//	lineptr[i]=(char*)malloc(sizeof(char)*MAXLEN);
+	char * linestor = (char *)malloc(sizeof(char)*MAXLEN*MAXLINES);
 
-	if ((nlines = readlines2(lineptr,MAXLINES)) >= 0){
+	//if ((nlines = readlines2(lineptr,MAXLINES)) >= 0){
+	if ((nlines = readlines3(lineptr,linestor,MAXLINES)) >= 0){
 		qsort2(lineptr,0,nlines-1);
-		//writelines(lineptr,nlines);
+		writelines(lineptr,nlines);
 		return 0;
 	}
 	else {
@@ -104,6 +110,29 @@ int readlines2(char *lineptr[], int maxlines){
 		}
 
 	return nlines;
+}
+
+int readlines3(char *lineptr[], char * linestor, int maxlines){
+	int len, nlines;
+	char line[MAXLEN];
+	char *lineend = linestor + MAXLEN;
+	char *p=linestor;
+
+	nlines=0;
+
+	while((len = getline2(line,MAXLEN)) > 0)
+		if (nlines >= maxlines || (p + len) > lineend)
+			return -1;
+		else {
+			line[len-1]='\0';
+			strcpy(p,line);
+			lineptr[nlines++] = p;
+			p += len;
+			//strcpy(lineptr[nlines++],line);
+		}
+
+	return nlines;
+
 }
 
 
