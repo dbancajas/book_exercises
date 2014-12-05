@@ -13,6 +13,10 @@
 //readlines3() below is the solution from the answer key. The difference with
 //my solution is that it allocated a 1-D array instead of a 2d array. I guess
 //this is faster given that the malloc() is only called once.
+//
+//The solution manual has a minor bug. should be "Char *linestop = linestor + MAXLEN * MAXSTOP;"
+//
+//the new version is slower?
 
 char *lineptr[MAXLINES];
 
@@ -28,12 +32,17 @@ void qsort2(char *lineptr[], int left, int right);
 /* sort input lines */
 
 int main(void){
-	int nlines;
+	int nlines=0;
 	int i;
 
 	//for (i=0; i < MAXLINES; ++i)
 	//	lineptr[i]=(char*)malloc(sizeof(char)*MAXLEN);
 	char * linestor = (char *)malloc(sizeof(char)*MAXLEN*MAXLINES);
+
+	if (!linestor){
+		printf("error mem alloc");
+		return -1;
+	}
 
 	//if ((nlines = readlines2(lineptr,MAXLINES)) >= 0){
 	if ((nlines = readlines3(lineptr,linestor,MAXLINES)) >= 0){
@@ -113,9 +122,10 @@ int readlines2(char *lineptr[], int maxlines){
 }
 
 int readlines3(char *lineptr[], char * linestor, int maxlines){
+
 	int len, nlines;
 	char line[MAXLEN];
-	char *lineend = linestor + MAXLEN;
+	char *lineend = linestor + MAXLEN * MAXLINES;
 	char *p=linestor;
 
 	nlines=0;
@@ -128,7 +138,6 @@ int readlines3(char *lineptr[], char * linestor, int maxlines){
 			strcpy(p,line);
 			lineptr[nlines++] = p;
 			p += len;
-			//strcpy(lineptr[nlines++],line);
 		}
 
 	return nlines;
