@@ -1,7 +1,7 @@
 CXX=g++
 
-all: funcs.cpp funcs.h main.cpp
-	$(CXX) main.cpp funcs.cpp -I. -o $@
+all: *.cpp
+	$(CXX) $< -I. -o $@
 
 clean: 
 	rm all
