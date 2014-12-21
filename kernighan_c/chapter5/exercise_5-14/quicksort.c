@@ -3,6 +3,7 @@
 //Exercise 5-14: Modify the sort program to handle a -r flag, which indicates sorting in reverse or decreasing order. Be sure that -r works with -n.
 
 void swap (int *i, int *j){
+	printf("swappinng %d %d\n",*i, *j);
 	if (i==j)
 		return;
 
@@ -26,8 +27,10 @@ void quicksort(int * array, int left, int right, int (*comp)(int,int)){
 
 	for(i=left; i < right; i++){
 		//if (array[i]<pivotElem)
-		if (comp(array[i],pivotElem))
+		if (comp(array[i],pivotElem)){
+			printf("swap: %d %d\n",i,last);
 			swap(&array[i],&array[last++]);
+		}
 	}
 	swap(&array[right],&array[last]);
 
