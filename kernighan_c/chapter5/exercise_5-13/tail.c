@@ -3,16 +3,15 @@
 #include<errno.h>
 
 
+#define MAX 10000
+
 //Exercise 5-13: Write the program tail, which prints the last n lines of its
 //input.
 //
 
-#define MAX 10000
-
 //Answer: This code has no error checking involved.
 
 void parseArgs(int *lines, int count, char * argv[]){
-
 	int i;
 
 	for (i=1; i < count; i++){
@@ -25,7 +24,6 @@ void parseArgs(int *lines, int count, char * argv[]){
 		  }
 		}
 	}
-
 }
 
 int main(int argc, char * argv[]){
