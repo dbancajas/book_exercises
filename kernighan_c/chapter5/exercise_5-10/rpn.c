@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<ctype.h>
 
 
 //Exercise 5-10: Write a program that will evaluate an
@@ -9,6 +10,7 @@
 
 //Answer: this only works for single char operands for now due to the way I made the stack.
 //
+
 typedef struct _node {
 	char a;
 	struct _node * next;
@@ -40,8 +42,18 @@ char pop(node **top){
 		*top = tmp;
 		return t;
 	}
+	else {
+		printf("pop: ERROR\n");
+	}
 	//should be an error here
 
+}
+
+int isoperator(char a){
+	if (a == '+' || a == '-' || a == '/' || a == '*')
+		return 1;
+	else 
+		return 0;
 }
 
 int main(int argc, char *argv[]){
@@ -49,9 +61,39 @@ int main(int argc, char *argv[]){
 	node *t=NULL;
 	node **top = &t;
 
-	while(argc--){
-		printf("%s ",*argv++);
+	int i=0;
+	int j=0;
+	char z='0';
+
+	for (;j<10;j++){
+		printf("%c:%d\n",z,z);
+		z++;
 	}
+	while(argc--){
+		printf("%s\n",*(argv+i));
+		char x = *(argv+i)[0];
+		printf("char: %c\n",x);
+
+		if (isalnum(x)){
+			push(x,top);
+		}
+		else if (isoperator(x)){
+			char b = pop(top);
+			char c = pop(top);
+			unsigned d = b-'0';
+			unsigned e = c-'0';
+
+			printf("\noperators: %c %c\n",b,c);
+			if(x=='+'){
+				printf("sum: %d\n",d+e);
+				push((d+e)+'0',top);
+			}
+
+		}
+
+		i++;
+	}
+
 	puts("");
 
 	push('c',top);
