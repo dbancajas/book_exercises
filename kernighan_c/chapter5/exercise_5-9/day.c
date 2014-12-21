@@ -4,7 +4,8 @@
 //Exercise 5-9: Rewrite routines day_of_year and month_day as pointers
 //
 //
-//Answer: day should be in the valid range for each month, and month should also be valid, year should be at least 0?
+//Answer: I have instantiated an array of char pointers
+//to point to the daytab array.
 
 
 
