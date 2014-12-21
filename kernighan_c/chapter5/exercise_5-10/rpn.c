@@ -3,12 +3,13 @@
 #include<ctype.h>
 
 
-//Exercise 5-10: Write a program that will evaluate an
-//reverse polish notation expression on the command
+//Exercise 5-10: Write a program that will evaluate an reverse polish notation
+//expression on the command
 //line.
 //
 
-//Answer: this only works for single char operands for now due to the way I made the stack.
+//Answer: this only works for single char operands for now due to the way I
+//made the stack.
 //
 
 typedef struct _node {
