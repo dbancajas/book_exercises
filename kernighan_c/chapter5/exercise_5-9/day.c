@@ -18,11 +18,17 @@ int day_of_year(int year, int month, int day){
 	int i, leap;
 	leap = ((year % 4) == 0 && (year %100) !=0) || year % 400 == 0;
 
-	if(day < 0 || day > daytab[leap][month] || month < 1 || month > 12 || year  < 0 )
+	char *d[2];
+	d[0]=&daytab[0][0];
+	d[1]=&daytab[1][0];
+
+
+	//if(day < 0 || day > daytab[leap][month] || month < 1 || month > 12 || year  < 0 )
+	if(day < 0 || day > *(d[leap]+month) || month < 1 || month > 12 || year  < 0 )
 		return -1;
 
 	for (i=1; i < month; i++)
-		day+=daytab[leap][i];
+		day+=*(daytab[leap]+i);
 
 	return day;
 }
@@ -34,11 +40,15 @@ int month_day(int year, int yearday, int *pmonth, int *pday){
 	int i,leap;
 	leap = (year%4 == 0 && year % 100 != 0) || year%400==0;
 
+	char *d[2];
+	d[0]=&daytab[0][0];
+	d[1]=&daytab[1][0];
+
 	if (year < 0 || yearday < 1 || yearday > (leap? 366: 365))
 		return -1;
 
-	for (i=1; yearday > daytab[leap][i]; i++)
-		yearday -= daytab[leap][i];
+	for (i=1; yearday > *(d[leap] + i); i++)
+		yearday -= *(d[leap] + i);
 
 	*pmonth = i;
 	*pday = yearday;
