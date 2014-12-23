@@ -16,7 +16,7 @@ void Stack::initialize(){ head=0; }
 void Stack::push(void* dat){
 	Link* newLink = new Link;
 	newLink->initialize(dat,head);
-	head = newLink;
+	this->head = newLink;
 	double *x = (double *) dat;
 	std::cout << "pushign: " << *x << endl;
 }
@@ -30,11 +30,15 @@ void* Stack::peek() {
 void* Stack::pop() {
 	if (head == 0) 
 		return 0;
+
 	void* result = head->data;
 
 	Link* oldHead = head;
+
 	head = head->next;
+	//require(head != head->next, "pointers should not be equal");
 	delete oldHead;
+	//require(oldHead == NULL, "oldHead not NULL");
 	return result;
 
 }

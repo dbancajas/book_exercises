@@ -9,12 +9,13 @@ int main(void){
 
 	Stack stack;
 
+	double* x;
 	for (int i=0; i<25; i++){
-		double x(i+1.20);
-		stack.push(&x);
+		x = new double(i+1.20);
+		stack.push(x);
 	}
 
-	stack.cleanup();
+	//stack.cleanup();
 
 	for (int i=0; i<25; i++){
 		double * x = (double *) stack.pop();
