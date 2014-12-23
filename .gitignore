@@ -1,3 +1,5 @@
 all
 *.swp
 *.pyc
+a.out
+*.o
