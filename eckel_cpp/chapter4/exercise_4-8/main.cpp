@@ -1,0 +1,29 @@
+#include<iostream>
+#include "Stack.h"
+
+//Exercise 4-8: Repeat Exercise 7 with Stacks.
+
+using namespace std;
+
+int main(void){
+
+	Stack stack;
+
+	for (int i=0; i<25; i++){
+		double x(i+1.20);
+		stack.push(&x);
+	}
+
+	stack.cleanup();
+
+	for (int i=0; i<25; i++){
+		double * x = (double *) stack.pop();
+		cout<<i<<": "<<*x<<endl;
+	}
+
+
+
+
+	return 0;
+
+}
