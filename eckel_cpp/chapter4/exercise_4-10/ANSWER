@@ -1,0 +1,4 @@
+C contains name mangling at the front and at the end?
+C++ also contains name mangling but the structure name is prepended before the function
+	- struct thestruct { myfunc() } would come out as _ZN10thestruct6myfuncEi 
+ 	- This is consistent with what has been discussed in book.
