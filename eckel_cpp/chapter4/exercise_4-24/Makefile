@@ -1,7 +1,7 @@
 CXX=g++
 
 all: *.cpp
-	$(CXX) $< -I. -o $@
+	$(CXX) $< -I. -o $@ -g
 
 clean: 
 	rm all
